@@ -9,7 +9,8 @@ import json
 import tensorflow as tf
 import os
 from Evaluation import createsStates, evaluateOnFly, evaluate
-
+from keras.utils import plot_model
+from tensorflow.keras.utils import plot_model
 
 def run_actor_critic(env, save_dir, n, rewardType, distance, goal):
     actor = Actor()
@@ -65,7 +66,7 @@ def train_reward_heuristic(bootstrapping):
 def run_main():
     ns = [5, 7]
     k = 3
-    rewardTypes = [4]
+    rewardTypes = [3]
     distances = [6, 8, 10]
     modelTypes = [0, 1]
     for n in ns:

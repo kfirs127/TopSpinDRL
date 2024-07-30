@@ -18,16 +18,16 @@ class Bootstrapping:
         self.optimizer = optimizer
 
     def get_h_values(self, states):
-        states_as_list = [state.get_state_as_list() for state in states]
+        states_as_list = [state.state for state in states]
         states = np.array(states_as_list, dtype=np.float32)
         states_tensor = tf.convert_to_tensor(states)
         predictions = self.bootstraping_heuristic(states_tensor, training=False)
         return predictions.numpy().flatten()
 
     def bootstrappingTraining(self):
-        T_max = 5000
+        T_max = 10000
 
-        for i in range(200):
+        for i in range(1000):
             print_counter = 1
             does_one_solved = False
 
@@ -43,7 +43,7 @@ class Bootstrapping:
                     print_counter += 1
 
                     topspin = TopSpin(self.n, self.k, random_state)
-                    path, _ = BWAS(topspin, 5, 10, self.bootstraping_heuristic, T)
+                    path, _ = BWAS(topspin, 5, 10, self.get_h_values, T)
                     if path is not None:
                         does_one_solved = True
                         counter = len(path) - 1

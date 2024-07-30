@@ -66,6 +66,10 @@ def train_model(env, model, optimizer, goal, gamma, max_episodes, max_steps):
                     action = np.random.choice(env.action_space.n, p=action_probs.numpy())
 
                 next_state, reward, done, _, _ = env.step(action)
+
+                if env.rewardType == 3:
+                    reward = reward.numpy()
+
                 episode_reward += reward
 
                 states.append(state)
